@@ -30,16 +30,15 @@ function onImageClick(evt) {
     return;
   }
   galerryImages.addEventListener("keydown", onCloseImageKeyEsc);
+
   const lightboxImage = basicLightbox
-    .create(`<img src=${evt.target.dataset.source}>`, {
-      onClose: (basicLightbox) => false,
-    })
+    .create(`<img src=${evt.target.dataset.source}>`)
     .show();
 }
 
 function onCloseImageKeyEsc(event) {
   if (event.code === "Escape") {
     onClose: (basicLightbox) => true;
-    galerryImages.removeEventListener("keydown", onCloseImageKeyEsc);
   }
+  galerryImages.removeEventListener("keydown", onCloseImageKeyEsc);
 }
