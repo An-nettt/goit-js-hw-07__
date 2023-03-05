@@ -3,9 +3,7 @@ import { galleryItems } from "./gallery-items.js";
 
 const galerryImages = document.querySelector(".gallery");
 const galleryMarkUp = createGallery(galleryItems);
-
 galerryImages.innerHTML = galleryMarkUp;
-
 function createGallery(galleryItems) {
   const imagesMarkUp = galleryItems
     .map(({ preview, original, description }) => {
@@ -24,4 +22,24 @@ function createGallery(galleryItems) {
   return imagesMarkUp;
 }
 
-console.log(galleryItems);
+galerryImages.addEventListener("click", onImageClick);
+
+function onImageClick(evt) {
+  evt.preventDefault();
+  if (!evt.target.classList.contains("gallery__image")) {
+    return;
+  }
+  galerryImages.addEventListener("keydown", onCloseImageKeyEsc);
+  const lightboxImage = basicLightbox
+    .create(`<img src=${evt.target.dataset.source}>`, {
+      onClose: (basicLightbox) => false,
+    })
+    .show();
+}
+
+function onCloseImageKeyEsc(event) {
+  if (event.code === "Escape") {
+    onClose: (basicLightbox) => true;
+    galerryImages.removeEventListener("keydown", onCloseImageKeyEsc);
+  }
+}
