@@ -21,6 +21,7 @@ function createGallery(galleryItems) {
     .join("");
   return imagesMarkUp;
 }
+let lightboxImage = 0;
 
 galerryImages.addEventListener("click", onImageClick);
 
@@ -31,14 +32,14 @@ function onImageClick(evt) {
   }
   galerryImages.addEventListener("keydown", onCloseImageKeyEsc);
 
-  const lightboxImage = basicLightbox
+  lightboxImage = basicLightbox
     .create(`<img src=${evt.target.dataset.source}>`)
     .show();
 }
 
 function onCloseImageKeyEsc(event) {
   if (event.code === "Escape") {
-    onClose: (basicLightbox) => true;
+    lightboxImage.close();
+    galerryImages.removeEventListener("keydown", onCloseImageKeyEsc);
   }
-  galerryImages.removeEventListener("keydown", onCloseImageKeyEsc);
 }

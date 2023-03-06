@@ -16,20 +16,11 @@ function createGallery(galleryItems) {
   return imagesMarkUp;
 }
 
-galerryImages.addEventListener("click", onImageClick);
+const gallery = new SimpleLightbox(".gallery a", {
+  caption: true,
+  captionDelay: 250,
+});
 
-function onImageClick(evt) {
-  evt.preventDefault();
-  if (!evt.target.classList.contains("gallery__image")) {
-    return;
-  }
-
-  const gallery = new SimpleLightbox(".gallery a", {
-    caption: true,
-    captionDelay: 250,
-  });
-
-  gallery.elements.forEach((element) => {
-    element.firstElementChild.title = element.firstElementChild.alt;
-  });
-}
+gallery.elements.forEach((element) => {
+  element.firstElementChild.title = element.firstElementChild.alt;
+});
